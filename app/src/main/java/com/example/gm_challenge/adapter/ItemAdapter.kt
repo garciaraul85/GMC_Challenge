@@ -6,7 +6,8 @@ import com.example.gm_challenge.R
 import com.example.gm_challenge.data.Item
 
 class ItemAdapter(private var previousSelectedItem: Int = -1,
-                  private val clickListener: (Int) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
+                  private val clickListener: (Int) -> Unit) :
+    androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
     private var items: MutableList<Item> = mutableListOf()
 
     override fun getItemCount() = items.size

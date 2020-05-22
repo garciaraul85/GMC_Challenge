@@ -21,14 +21,22 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
             setContentView(R.layout.activity_main)
         }
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        setupToolbar()
 
-        drawerFragment = supportFragmentManager.findFragmentById(R.id.fragment_navigation_drawer) as ElementFragment
-        drawerFragment.init(R.id.fragment_navigation_drawer, drawer_layout, toolbar)
+        setupDrawer()
 
         this.savedInstanceState = savedInstanceState
-        displayView(null)
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    private fun setupDrawer() {
+        drawerFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_navigation_drawer) as ElementFragment
+        drawerFragment.setupDrawer(R.id.fragment_navigation_drawer, drawer_layout, toolbar)
     }
 
     override fun onBackPressed() {
@@ -50,7 +58,7 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
 
         if (savedInstanceState == null) {
             val bundle = Bundle()
-            bundle.putParcelable("element", element)
+            bundle.putParcelable(ELEMENT, element)
             fragment.setArguments(bundle)
 
             val fragmentManager = supportFragmentManager
@@ -65,4 +73,9 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
     private fun isTablet(): Boolean {
         return resources.configuration.smallestScreenWidthDp >= 900
     }
+
+    companion object {
+        const val ELEMENT = "element"
+    }
+
 }

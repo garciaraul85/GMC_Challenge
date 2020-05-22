@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.gm_challenge.adapter.ElementAdapter
 import com.example.gm_challenge.data.Element
 import com.example.gm_challenge.viewmodel.ElementViewModel
 import com.example.gm_challenge.viewmodel.ElementViewModelFactory
 import kotlinx.android.synthetic.main.fragment_element.*
-import java.util.*
 
 class ElementFragment : androidx.fragment.app.Fragment() {
 
@@ -36,49 +36,59 @@ class ElementFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_element, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupViewModel()
+
+
+        savedInstanceState?.let {
+            lastSelectedOption = it.getInt(LAST_SELECTED_OPTION, -1)
+        }
+
+        setupRecycler()
+        getElementsData()
+    }
+
+    private fun setupViewModel() {
         viewModel = ViewModelProvider(
             this,
             ElementViewModelFactory()
         ).get(ElementViewModel::class.java)
-
-
-        savedInstanceState?.let {
-            lastSelectedOption = it.getInt("lastSelectedOption", -1)
-        }
-
-        initRecycler()
     }
 
-    private fun initRecycler() {
-        adapter = ElementAdapter(lastSelectedOption) { position: Int, element: Element -> partItemClicked(position, element) }
+    private fun setupRecycler() {
+        adapter = ElementAdapter(lastSelectedOption) {
+                position: Int, element: Element -> elementClicked(position, element)
+        }
         rv_drawer_list.adapter = adapter
         rv_drawer_list.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(activity)
+    }
 
-        viewModel.elementLiveData.observe(this, androidx.lifecycle.Observer {
+    private fun getElementsData() {
+        viewModel.elementLiveData.observe(this, Observer {
             adapter.update(it)
         })
         viewModel.getElements()
     }
 
-    private fun partItemClicked(position: Int, element: Element) {
+    private fun elementClicked(position: Int, element: Element) {
         lastSelectedOption = position
         drawerListener?.onDrawerItemSelected(element)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("lastSelectedOption", lastSelectedOption)
+        outState.putInt(LAST_SELECTED_OPTION, lastSelectedOption)
     }
 
-    fun init(fragmentId: Int, drawerLayout: androidx.drawerlayout.widget.DrawerLayout?, toolbar: Toolbar) {
+    fun setupDrawer(fragmentId: Int, drawerLayout: androidx.drawerlayout.widget.DrawerLayout?, toolbar: Toolbar) {
         containerView = activity?.findViewById(fragmentId)
         mDrawerLayout = drawerLayout
         val drawerToggle = object : ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
@@ -105,4 +115,9 @@ class ElementFragment : androidx.fragment.app.Fragment() {
     interface FragmentDrawerListener {
         fun onDrawerItemSelected(element: Element)
     }
+
+    companion object {
+        const val LAST_SELECTED_OPTION = "lastSelectedOption"
+    }
+
 }
