@@ -2,11 +2,11 @@ package com.example.gm_challenge
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +15,12 @@ import com.example.gm_challenge.data.Element
 import kotlinx.android.synthetic.main.fragment_element.*
 import java.util.*
 
-class ElementFragment : Fragment() {
+class ElementFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var adapter: ElementAdapter
 
     private var drawerListener: FragmentDrawerListener? = null
-    private var mDrawerLayout: DrawerLayout? = null
+    private var mDrawerLayout: androidx.drawerlayout.widget.DrawerLayout? = null
     private var containerView: View? = null
 
     private var lastSelectedOption = -1
@@ -58,7 +58,8 @@ class ElementFragment : Fragment() {
         adapter = ElementAdapter(lastSelectedOption) { word: Int -> partItemClicked(word) }
         adapter.update(data)
         rv_drawer_list.adapter = adapter
-        rv_drawer_list.layoutManager = LinearLayoutManager(activity)
+        rv_drawer_list.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(activity)
     }
 
     private fun partItemClicked(word: Int) {
@@ -70,7 +71,7 @@ class ElementFragment : Fragment() {
         outState.putInt("lastSelectedOption", lastSelectedOption)
     }
 
-    fun init(fragmentId: Int, drawerLayout: DrawerLayout?, toolbar: Toolbar) {
+    fun init(fragmentId: Int, drawerLayout: androidx.drawerlayout.widget.DrawerLayout?, toolbar: Toolbar) {
         containerView = activity?.findViewById(fragmentId)
         mDrawerLayout = drawerLayout
         val drawerToggle = object : ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {

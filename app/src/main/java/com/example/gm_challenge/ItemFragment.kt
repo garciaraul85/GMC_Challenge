@@ -1,8 +1,8 @@
 package com.example.gm_challenge
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_item.rv_drawer_list
 import java.util.ArrayList
 
 
-class ItemFragment : Fragment() {
+class ItemFragment : androidx.fragment.app.Fragment() {
     private lateinit var adapter: ItemAdapter
     private var lastSelectedOption = -1
 
@@ -39,7 +39,8 @@ class ItemFragment : Fragment() {
         adapter = ItemAdapter(lastSelectedOption) { word: Int -> partItemClicked(word) }
         adapter.update(data)
         rv_drawer_list.adapter = adapter
-        rv_drawer_list.layoutManager = LinearLayoutManager(activity)
+        rv_drawer_list.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(activity)
     }
 
     private fun partItemClicked(word: Int) {
