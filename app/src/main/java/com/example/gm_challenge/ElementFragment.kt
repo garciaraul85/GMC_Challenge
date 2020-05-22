@@ -2,16 +2,16 @@ package com.example.gm_challenge
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.example.gm_challenge.adapter.ElementAdapter
 import com.example.gm_challenge.data.Element
+import com.example.gm_challenge.viewmodel.ElementViewModel
+import com.example.gm_challenge.viewmodel.ElementViewModelFactory
 import kotlinx.android.synthetic.main.fragment_element.*
 import java.util.*
 
@@ -25,7 +25,9 @@ class ElementFragment : androidx.fragment.app.Fragment() {
 
     private var lastSelectedOption = -1
 
-    override fun onAttach(context: Context?) {
+    lateinit var viewModel: ElementViewModel
+
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             drawerListener = context as FragmentDrawerListener
@@ -40,30 +42,35 @@ class ElementFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val titles = activity?.resources?.getStringArray(R.array.nav_drawer_labels)
-        val data = ArrayList<Element>()
-        for (i in titles?.indices!!) {
-            val navItem = Element(title = titles[i])
-            data.add(navItem)
-        }
+
+        viewModel = ViewModelProvider(
+            this,
+            ElementViewModelFactory()
+        ).get(ElementViewModel::class.java)
+
 
         savedInstanceState?.let {
             lastSelectedOption = it.getInt("lastSelectedOption", -1)
         }
 
-        initRecycler(data)
+        initRecycler()
     }
 
-    private fun initRecycler(data: ArrayList<Element>) {
-        adapter = ElementAdapter(lastSelectedOption) { word: Int -> partItemClicked(word) }
-        adapter.update(data)
+    private fun initRecycler() {
+        adapter = ElementAdapter(lastSelectedOption) { position: Int, element: Element -> partItemClicked(position, element) }
         rv_drawer_list.adapter = adapter
         rv_drawer_list.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(activity)
+
+        viewModel.elementLiveData.observe(this, androidx.lifecycle.Observer {
+            adapter.update(it)
+        })
+        viewModel.getElements()
     }
 
-    private fun partItemClicked(word: Int) {
-        lastSelectedOption = word
+    private fun partItemClicked(position: Int, element: Element) {
+        lastSelectedOption = position
+        drawerListener?.onDrawerItemSelected(element)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -96,6 +103,6 @@ class ElementFragment : androidx.fragment.app.Fragment() {
     }
 
     interface FragmentDrawerListener {
-        fun onDrawerItemSelected(view: View, position: Int)
+        fun onDrawerItemSelected(element: Element)
     }
 }

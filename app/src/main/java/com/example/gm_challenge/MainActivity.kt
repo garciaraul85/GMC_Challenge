@@ -1,10 +1,9 @@
 package com.example.gm_challenge
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.core.view.GravityCompat
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
+import androidx.core.view.GravityCompat
+import com.example.gm_challenge.data.Element
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener {
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         drawerFragment.init(R.id.fragment_navigation_drawer, drawer_layout, toolbar)
 
         this.savedInstanceState = savedInstanceState
-        displayView(0)
+        displayView(null)
     }
 
     override fun onBackPressed() {
@@ -39,16 +38,16 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         }
     }
 
-    override fun onDrawerItemSelected(view: View, position: Int) {
-        displayView(position)
+    override fun onDrawerItemSelected(element: Element) {
+        displayView(element)
     }
 
-    private fun displayView(position: Int) {
-        val fragment: androidx.fragment.app.Fragment?
-        fragment = ItemFragment()
+    private fun displayView(element: Element?) {
         title = getString(R.string.nav_item_two)
 
         if (savedInstanceState == null) {
+            val fragment: androidx.fragment.app.Fragment?
+            fragment = ItemFragment(element)
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.main_content, fragment)
