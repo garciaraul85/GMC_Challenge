@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="nav_drawer_width">260dp</dimen>
+    <dimen name="header_height">120dp</dimen>
+    <dimen name="toolbartitle_txtsize">20sp</dimen>
+</resources>
