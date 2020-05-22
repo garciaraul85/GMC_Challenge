@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
-        android:name="com.example.gm_challenge.ElementFragment"
+        android:name="com.example.gm_challenge.view.fragment.ElementFragment"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

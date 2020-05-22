@@ -1,4 +1,4 @@
-package com.example.gm_challenge
+package com.example.gm_challenge.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.gm_challenge.MainActivity.Companion.ELEMENT
+import com.example.gm_challenge.view.MainActivity.Companion.ELEMENT
+import com.example.gm_challenge.R
 import com.example.gm_challenge.adapter.ItemAdapter
 import com.example.gm_challenge.data.Element
 import com.example.gm_challenge.viewmodel.ItemViewModel

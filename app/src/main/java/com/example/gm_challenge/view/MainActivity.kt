@@ -1,10 +1,13 @@
-package com.example.gm_challenge
+package com.example.gm_challenge.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.example.gm_challenge.R
 import com.example.gm_challenge.data.Element
+import com.example.gm_challenge.view.fragment.ElementFragment
+import com.example.gm_challenge.view.fragment.ItemFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener {

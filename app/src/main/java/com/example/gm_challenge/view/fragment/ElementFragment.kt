@@ -1,4 +1,4 @@
-package com.example.gm_challenge
+package com.example.gm_challenge.view.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.gm_challenge.R
 import com.example.gm_challenge.adapter.ElementAdapter
 import com.example.gm_challenge.data.Element
 import com.example.gm_challenge.viewmodel.ElementViewModel
@@ -55,7 +56,7 @@ class ElementFragment : androidx.fragment.app.Fragment() {
         getElementsData()
     }
 
-    private fun setupViewModel() {
+    fun setupViewModel() {
         viewModel = ViewModelProvider(
             this,
             ElementViewModelFactory()
@@ -91,7 +92,10 @@ class ElementFragment : androidx.fragment.app.Fragment() {
     fun setupDrawer(fragmentId: Int, drawerLayout: androidx.drawerlayout.widget.DrawerLayout?, toolbar: Toolbar) {
         containerView = activity?.findViewById(fragmentId)
         mDrawerLayout = drawerLayout
-        val drawerToggle = object : ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+        val drawerToggle = object : ActionBarDrawerToggle(activity, drawerLayout, toolbar,
+            R.string.drawer_open,
+            R.string.drawer_close
+        ) {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
                 activity?.invalidateOptionsMenu()
