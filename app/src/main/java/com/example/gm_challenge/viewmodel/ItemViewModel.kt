@@ -13,17 +13,20 @@ class ItemViewModel: ViewModel() {
 
     fun getItemByElements(element: Element?) {
         val elements = mutableListOf<Item>()
+        var filteredElements = mutableListOf<Item>()
         element.let {
             for (i in 0.. 10) {
                 elements.add(Item("Title $i"))
             }
+        }
 
-            elements.filter {
-                it.elementId == element?.elementId
+        elements.forEach {
+            if (it.elementId == element?.elementId) {
+                filteredElements.add(it)
             }
         }
 
-        itemMutableLiveData.value = elements
+        itemMutableLiveData.value = filteredElements
     }
 
 }

@@ -1,7 +1,6 @@
 package com.example.gm_challenge.adapter
 
 import android.graphics.Color
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.example.gm_challenge.data.Item
 import kotlinx.android.synthetic.main.item_row.view.*

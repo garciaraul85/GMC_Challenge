@@ -1,6 +1,5 @@
 package com.example.gm_challenge.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.gm_challenge.R
@@ -8,12 +7,12 @@ import com.example.gm_challenge.data.Item
 
 class ItemAdapter(private var previousSelectedItem: Int = -1,
                   private val clickListener: (Int) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
-    private var words: MutableList<Item> = mutableListOf()
+    private var items: MutableList<Item> = mutableListOf()
 
-    override fun getItemCount() = words.size
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bindItem(words[position], position, previousSelectedItem)
+        holder.bindItem(items[position], position, previousSelectedItem)
 
         holder.itemView.setOnClickListener {
             clickListener(position)
@@ -23,8 +22,8 @@ class ItemAdapter(private var previousSelectedItem: Int = -1,
     }
 
     fun update(items: MutableList<Item>) {
-        this.words.clear()
-        this.words = items
+        this.items.clear()
+        this.items = items
         notifyDataSetChanged()
     }
 

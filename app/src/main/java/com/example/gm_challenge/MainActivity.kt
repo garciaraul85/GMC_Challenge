@@ -3,6 +3,7 @@ package com.example.gm_challenge
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.example.gm_challenge.data.Element
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -43,17 +44,22 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
     }
 
     private fun displayView(element: Element?) {
+        val fragment: Fragment?
+        fragment = ItemFragment()
         title = getString(R.string.nav_item_two)
 
         if (savedInstanceState == null) {
-            val fragment: androidx.fragment.app.Fragment?
-            fragment = ItemFragment(element)
+            val bundle = Bundle()
+            bundle.putParcelable("element", element)
+            fragment.setArguments(bundle)
+
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.main_content, fragment)
             fragmentTransaction.commit()
             toolbarTitle.text = title
         }
+        savedInstanceState = null
     }
 
     private fun isTablet(): Boolean {
