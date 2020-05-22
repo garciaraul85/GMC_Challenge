@@ -1,13 +1,13 @@
 package com.example.gm_challenge.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.gm_challenge.R
 import com.example.gm_challenge.data.Element
 
 class ElementAdapter(private var previousSelectedItem: Int = -1,
-                     private val clickListener: (Int) -> Unit) : RecyclerView.Adapter<ElementViewHolder>() {
+                     private val clickListener: (Int) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<ElementViewHolder>() {
     private var words: MutableList<Element> = mutableListOf()
 
     override fun getItemCount() = words.size

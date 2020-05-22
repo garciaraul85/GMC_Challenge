@@ -1,9 +1,9 @@
 package com.example.gm_challenge
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
     }
 
     private fun displayView(position: Int) {
-        val fragment: Fragment?
+        val fragment: androidx.fragment.app.Fragment?
         fragment = ItemFragment()
         title = getString(R.string.nav_item_two)
 
