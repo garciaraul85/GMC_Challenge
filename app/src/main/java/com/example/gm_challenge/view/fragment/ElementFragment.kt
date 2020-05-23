@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.element.Tag
+import com.example.gm_challenge.util.SimpleDividerItemDecoration
 import com.example.gm_challenge.view.adapter.ElementAdapter
 import com.example.gm_challenge.viewmodel.ElementViewModel
 import kotlinx.android.synthetic.main.fragment_element.*
