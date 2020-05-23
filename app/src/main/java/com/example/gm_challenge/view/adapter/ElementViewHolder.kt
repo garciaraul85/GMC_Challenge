@@ -17,7 +17,7 @@ class ElementViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.
         itemView.reach.text = "reach ${coolFormat(itemDrawer.reach.toDouble(), 0)}"
 
         if (previousSelectedItem == position)
-            itemView.alpha = 0.5f
+            itemView.alpha = 0.25f
         else
             itemView.alpha = 1f
     }
