@@ -1,14 +1,14 @@
-package com.example.gm_challenge.adapter
+package com.example.gm_challenge.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.gm_challenge.R
-import com.example.gm_challenge.data.Item
+import com.example.gm_challenge.model.data.item.Track
 
 class ItemAdapter(private var previousSelectedItem: Int = -1,
                   private val clickListener: (Int) -> Unit) :
     androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
-    private var items: MutableList<Item> = mutableListOf()
+    private var items: MutableList<Track> = mutableListOf()
 
     override fun getItemCount() = items.size
 
@@ -22,7 +22,7 @@ class ItemAdapter(private var previousSelectedItem: Int = -1,
         }
     }
 
-    fun update(items: MutableList<Item>) {
+    fun update(items: MutableList<Track>) {
         this.items.clear()
         this.items = items
         notifyDataSetChanged()

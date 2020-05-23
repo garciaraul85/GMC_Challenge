@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.gm_challenge.R
-import com.example.gm_challenge.data.Element
+import com.example.gm_challenge.model.data.element.Tag
 import com.example.gm_challenge.view.fragment.ElementFragment
 import com.example.gm_challenge.view.fragment.ItemFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,18 +50,18 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         }
     }
 
-    override fun onDrawerItemSelected(element: Element) {
-        displayView(element)
+    override fun onDrawerItemSelected(tag: Tag) {
+        displayView(tag)
     }
 
-    private fun displayView(element: Element?) {
+    private fun displayView(tag: Tag) {
         val fragment: Fragment?
         fragment = ItemFragment()
         title = getString(R.string.nav_item_two)
 
         if (savedInstanceState == null) {
             val bundle = Bundle()
-            bundle.putParcelable(ELEMENT, element)
+            bundle.putParcelable(ELEMENT, tag)
             fragment.setArguments(bundle)
 
             val fragmentManager = supportFragmentManager

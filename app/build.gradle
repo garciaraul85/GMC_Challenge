@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.gm_challenge"
-        minSdkVersion 16
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -44,6 +44,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.8.1"
     implementation "com.squareup.retrofit2:converter-gson:2.8.1"
     implementation "com.squareup.okhttp3:logging-interceptor:4.4.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
 
     // RxJava
     implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
