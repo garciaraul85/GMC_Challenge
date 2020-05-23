@@ -16,9 +16,9 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 interface LastFMRestService {
-    @GET("?method=tag.getTopTags&api_key=a78ffbe80a2122a28f1d87e89eb91a79&format=json")
+    @GET("?method=tag.getTopTags")
     fun getTopTag(): Single<Element>
 
-    @GET("?method=tag.gettoptracks&api_key=a78ffbe80a2122a28f1d87e89eb91a79&format=json")
+    @GET("?method=tag.gettoptracks")
     fun getTopTracksByTag(@Query("tag") tag: String): Single<Item>
 }
