@@ -9,6 +9,7 @@ import com.example.gm_challenge.model.data.element.Tag
 import com.example.gm_challenge.view.fragment.ElementFragment
 import com.example.gm_challenge.view.fragment.ItemFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener {
 

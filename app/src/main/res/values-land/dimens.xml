@@ -14,7 +14,7 @@
     <dimen name="element_round_margin">16dp</dimen>
     <dimen name="element_round_elevation">6dp</dimen>
     <dimen name="riv_border_width">1dp</dimen>
-    <dimen name="element_name">14sp</dimen>
+    <dimen name="element_name">16sp</dimen>
     <dimen name="element_name_margin_start">10dp</dimen>
     <dimen name="element_name_padding_top">4dp</dimen>
     <dimen name="element_name_padding_end">8dp</dimen>
@@ -26,9 +26,9 @@
     <dimen name="genre_txt_size">11sp</dimen>
     <dimen name="genre_max_width">250dp</dimen>
     <dimen name="count_padding">4dp</dimen>
-    <dimen name="count_margin_end">5dp</dimen>
-    <dimen name="count_txt_size">8sp</dimen>
-    <dimen name="element_reach_txt_size">8sp</dimen>
+    <dimen name="count_margin_end">2dp</dimen>
+    <dimen name="count_txt_size">11sp</dimen>
+    <dimen name="element_reach_txt_size">14sp</dimen>
     <dimen name="reach_padding">4dp</dimen>
     <dimen name="reach_margin">2dp</dimen>
 </resources>
