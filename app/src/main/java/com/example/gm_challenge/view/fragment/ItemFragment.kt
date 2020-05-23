@@ -1,23 +1,23 @@
-package com.example.gm_challenge
+package com.example.gm_challenge.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.gm_challenge.MainActivity.Companion.ELEMENT
-import com.example.gm_challenge.adapter.ItemAdapter
-import com.example.gm_challenge.data.Element
+import com.example.gm_challenge.R
+import com.example.gm_challenge.model.data.element.Tag
+import com.example.gm_challenge.view.MainActivity.Companion.ELEMENT
+import com.example.gm_challenge.view.adapter.ItemAdapter
 import com.example.gm_challenge.viewmodel.ItemViewModel
-import com.example.gm_challenge.viewmodel.ItemViewModelFactory
 import kotlinx.android.synthetic.main.fragment_item.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ItemFragment : androidx.fragment.app.Fragment() {
     private lateinit var adapter: ItemAdapter
     private var lastSelectedOption = -1
 
-    lateinit var viewModel: ItemViewModel
+    private val viewModel: ItemViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -25,25 +25,16 @@ class ItemFragment : androidx.fragment.app.Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val element = arguments?.getParcelable(ELEMENT) as Element?
-
-        setupViewModel()
+        val tag = arguments?.getParcelable(ELEMENT) as Tag
 
         savedInstanceState?.let {
             lastSelectedOption = it.getInt(LAST_SELECTED_OPTION2, -1)
         }
 
-        initRecycler(element)
+        setupRecycler(tag)
     }
 
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            ItemViewModelFactory()
-        ).get(ItemViewModel::class.java)
-    }
-
-    private fun initRecycler(element: Element?) {
+    private fun setupRecycler(tag: Tag) {
         adapter = ItemAdapter(lastSelectedOption) { item: Int -> partItemClicked(item) }
 
         viewModel.itemLiveData.observe(this, Observer {
@@ -54,7 +45,7 @@ class ItemFragment : androidx.fragment.app.Fragment() {
         rv_drawer_list.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(activity)
 
-        viewModel.getItemByElements(element)
+        viewModel.getItemByElements(tag)
     }
 
     private fun partItemClicked(word: Int) {

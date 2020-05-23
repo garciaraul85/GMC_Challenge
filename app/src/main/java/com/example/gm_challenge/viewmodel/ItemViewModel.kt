@@ -3,30 +3,30 @@ package com.example.gm_challenge.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gm_challenge.data.Element
-import com.example.gm_challenge.data.Item
+import com.example.gm_challenge.model.data.element.Tag
+import com.example.gm_challenge.model.data.item.Track
+import com.example.gm_challenge.model.repository.LastFMRepository
+import io.reactivex.disposables.CompositeDisposable
 
-class ItemViewModel: ViewModel() {
-    private val itemMutableLiveData = MutableLiveData<MutableList<Item>>()
-    val itemLiveData: LiveData<MutableList<Item>>
+class ItemViewModel(private val lastFMRepository: LastFMRepository): ViewModel() {
+    private val disposable = CompositeDisposable()
+    private val itemMutableLiveData = MutableLiveData<MutableList<Track>>()
+    val itemLiveData: LiveData<MutableList<Track>>
         get() = itemMutableLiveData
 
-    fun getItemByElements(element: Element?) {
-        val elements = mutableListOf<Item>()
-        var filteredElements = mutableListOf<Item>()
-        element.let {
-            for (i in 0.. 10) {
-                elements.add(Item("Title $i"))
-            }
+    fun getItemByElements(tag: Tag?) {
+        tag?.let {
+            disposable.add(
+                lastFMRepository.getTopTracksByTag(tag)
+                    .subscribe({
+                        itemMutableLiveData.value = it
+                    }, {})
+            )
         }
-
-        elements.forEach {
-            if (it.elementId == element?.elementId) {
-                filteredElements.add(it)
-            }
-        }
-
-        itemMutableLiveData.value = filteredElements
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 }

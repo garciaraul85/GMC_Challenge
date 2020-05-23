@@ -3,19 +3,27 @@ package com.example.gm_challenge.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gm_challenge.data.Element
+import com.example.gm_challenge.model.data.element.Tag
+import com.example.gm_challenge.model.repository.LastFMRepository
+import io.reactivex.disposables.CompositeDisposable
 
-class ElementViewModel: ViewModel() {
-    private val elementMutableLiveData = MutableLiveData<MutableList<Element>>()
-    val elementLiveData: LiveData<MutableList<Element>>
+class ElementViewModel(private val lastFMRepository: LastFMRepository): ViewModel() {
+    private val disposable = CompositeDisposable()
+    private val elementMutableLiveData = MutableLiveData<MutableList<Tag>>()
+    val elementLiveData: LiveData<MutableList<Tag>>
         get() = elementMutableLiveData
 
     fun getElements() {
-        val elements = mutableListOf<Element>()
-        for (i in 0.. 10) {
-            elements.add(Element("Title $i"))
-        }
-        elementMutableLiveData.value = elements
+        disposable.add(
+            lastFMRepository.getTopTags()
+                .subscribe({
+                    elementMutableLiveData.value = it
+                }, {})
+        )
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 }
