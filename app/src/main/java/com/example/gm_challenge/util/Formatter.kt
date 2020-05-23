@@ -1,5 +1,10 @@
 package com.example.gm_challenge.util
 
+import android.animation.ValueAnimator
+import android.view.View
+import android.view.animation.LinearInterpolator
+import android.widget.TextView
+import java.util.concurrent.TimeUnit
 
 private val c = charArrayOf('k', 'm', 'b', 't')
 
@@ -17,4 +22,28 @@ fun coolFormat(n: Double, iteration: Int): String? {
         (if (d > 99.9 || isRound || !isRound && d > 9.99) //this decides whether to trim the decimals
             d.toInt() * 10 / 10 else d.toString() + "" // (int) d * 10 / 10 drops the decimal
                 ).toString() + "" + c[iteration] else coolFormat(d, iteration + 1)
+}
+
+fun timeFormater(time: Long): String {
+    return "${TimeUnit.SECONDS.toMinutes(time)} minutes"
+}
+
+object Anim {
+    fun animateText(animator: ValueAnimator, item: View, textView: TextView) {
+        animator.repeatCount = ValueAnimator.INFINITE
+        animator.interpolator = LinearInterpolator()
+        animator.duration = 5000L
+        animator.addUpdateListener { animation ->
+            val progress = animation.animatedValue as Float
+            val width: Float = item.width.toFloat()
+            val translationX = width * progress
+            textView.translationX = translationX
+        }
+        animator.start()
+    }
+
+    fun stopAnimateText(animator: ValueAnimator) {
+        animator.cancel()
+        animator.end()
+    }
 }

@@ -7,4 +7,7 @@
     <color name="flatOrange">#FF9500</color>
     <color name="FlatYellow">#FFCC00</color>
     <color name="library_back_color_88">#DD080808</color>
+    <item name="FlatWhite" type="color">#F5F5F5</item>
+    <item name="FlatGreen" type="color">#567845</item>
+    <item name="white" type="color">#ffffff</item>
 </resources>

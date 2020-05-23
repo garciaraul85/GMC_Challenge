@@ -6,7 +6,11 @@
     android:background="@color/library_back_color_88"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    app:cardCornerRadius="12dp"
+    app:contentPadding="15dp"
+    app:cardElevation="4dp"
+    app:cardMaxElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root"
