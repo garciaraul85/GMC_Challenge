@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.item.Track
-import com.example.gm_challenge.util.timeFormater
-import kotlinx.android.synthetic.main.item_row.view.*
 
 class ItemAdapter(private var previousSelectedItem: Int = -1,
                   private val clickListener: (Int) -> Unit) :

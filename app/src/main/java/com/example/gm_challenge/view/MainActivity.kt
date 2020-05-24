@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         setupDrawer()
 
         this.savedInstanceState = savedInstanceState
+        displayView(null)
     }
 
     private fun setupToolbar() {
@@ -55,10 +56,10 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         displayView(tag)
     }
 
-    private fun displayView(tag: Tag) {
+    private fun displayView(tag: Tag?) {
         val fragment: Fragment?
         fragment = ItemFragment()
-        title = getString(R.string.nav_item_two)
+        title = tag?.name ?: getString(R.string.last_fm)
 
         if (savedInstanceState == null) {
             val bundle = Bundle()

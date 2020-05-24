@@ -6,24 +6,43 @@ import androidx.lifecycle.ViewModel
 import com.example.gm_challenge.model.data.element.Tag
 import com.example.gm_challenge.model.repository.LastFMRepository
 import io.reactivex.disposables.CompositeDisposable
+import java.net.UnknownHostException
 
 class ElementViewModel(private val lastFMRepository: LastFMRepository): ViewModel() {
     private val disposable = CompositeDisposable()
-    private val elementMutableLiveData = MutableLiveData<MutableList<Tag>>()
-    val elementLiveData: LiveData<MutableList<Tag>>
+    private val elementMutableLiveData = MutableLiveData<AppState>()
+    val elementLiveData: LiveData<AppState>
         get() = elementMutableLiveData
 
     fun getElements() {
+        elementMutableLiveData.value = AppState.LOADING
         disposable.add(
             lastFMRepository.getTopTags()
                 .subscribe({
-                    elementMutableLiveData.value = it
-                }, {})
+                    if (it.isEmpty()) {
+                        elementMutableLiveData.value = AppState.ERROR("No songs Retrieved")
+                    } else {
+                        elementMutableLiveData.value = AppState.SUCCESS(it)
+                    }
+                }, {
+                    //errors
+                    val errorString = when (it) {
+                        is UnknownHostException -> "No Internet Connection"
+                        else -> it.localizedMessage
+                    }
+                    elementMutableLiveData.value = AppState.ERROR(errorString)
+                })
         )
     }
 
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+
+    sealed class AppState {
+        object LOADING : AppState()
+        data class SUCCESS(val wordsList: MutableList<Tag>) : AppState()
+        data class ERROR(val message: String) : AppState()
     }
 }

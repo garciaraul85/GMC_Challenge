@@ -31,4 +31,5 @@
     <dimen name="element_reach_txt_size">8sp</dimen>
     <dimen name="reach_padding">4dp</dimen>
     <dimen name="reach_margin">2dp</dimen>
+    <dimen name="default_spacing_medium">8dp</dimen>
 </resources>
