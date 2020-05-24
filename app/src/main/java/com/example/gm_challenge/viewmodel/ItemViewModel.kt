@@ -1,17 +1,15 @@
 package com.example.gm_challenge.viewmodel
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gm_challenge.model.data.element.Tag
-import com.example.gm_challenge.model.data.item.Item
 import com.example.gm_challenge.model.data.item.Track
-import com.example.gm_challenge.model.repository.LastFMRepository
+import com.example.gm_challenge.model.repository.Repository
 import io.reactivex.disposables.CompositeDisposable
 import java.net.UnknownHostException
 
-class ItemViewModel(private val lastFMRepository: LastFMRepository): ViewModel() {
+class ItemViewModel(private val lastFMRepository: Repository): ViewModel() {
     private val disposable = CompositeDisposable()
 
     private val itemMutableLiveData = MutableLiveData<AppState>()

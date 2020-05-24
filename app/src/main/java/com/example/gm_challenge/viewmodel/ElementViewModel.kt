@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gm_challenge.model.data.element.Tag
-import com.example.gm_challenge.model.repository.LastFMRepository
+import com.example.gm_challenge.model.repository.Repository
 import io.reactivex.disposables.CompositeDisposable
 import java.net.UnknownHostException
 
-class ElementViewModel(private val lastFMRepository: LastFMRepository): ViewModel() {
+class ElementViewModel(private val lastFMRepository: Repository): ViewModel() {
     private val disposable = CompositeDisposable()
     private val elementMutableLiveData = MutableLiveData<AppState>()
     val elementLiveData: LiveData<AppState>
@@ -20,7 +20,7 @@ class ElementViewModel(private val lastFMRepository: LastFMRepository): ViewMode
             lastFMRepository.getTopTags()
                 .subscribe({
                     if (it.isEmpty()) {
-                        elementMutableLiveData.value = AppState.ERROR("No songs Retrieved")
+                        elementMutableLiveData.value = AppState.ERROR("No Tracks Retrieved")
                     } else {
                         elementMutableLiveData.value = AppState.SUCCESS(it)
                     }
