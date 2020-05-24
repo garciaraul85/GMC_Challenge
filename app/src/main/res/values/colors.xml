@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="flatOrange">#FF9500</color>
+    <color name="FlatYellow">#FFCC00</color>
+    <color name="library_back_color_88">#DD080808</color>
+    <color name="element_round_bg">#444</color>
+    <color name="riv_border_color">#20F5F5F5</color>
+    <color name="element_name_txt_color">#FAFAFA</color>
+    <color name="genre_text_color">#888</color>
+    <item name="FlatWhite" type="color">#F5F5F5</item>
+    <item name="FlatGreen" type="color">#567845</item>
+    <item name="white" type="color">#ffffff</item>
 </resources>

@@ -1,52 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingDefaultResource">
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient_header">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/cont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fragment_navigation_drawer">
-        <TextView
-            android:id="@+id/toolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/toolbartitle_txtsize"
-            android:layout_gravity="center" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <fragment
-        android:id="@+id/fragment_navigation_drawer"
-        android:name="com.example.gm_challenge.view.fragment.ElementFragment"
-        android:layout_width="@dimen/nav_drawer_width"
-        android:layout_height="0dp"
-        android:layout_gravity="start"
-        app:layout="@layout/fragment_element"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout="@layout/fragment_element" />
+        app:layout_constraintStart_toStartOf="parent">
+        <fragment
+            android:id="@+id/fragment_navigation_drawer"
+            android:name="com.example.gm_challenge.view.fragment.ElementFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout="@layout/fragment_element"
+            tools:layout="@layout/fragment_element" />
 
-    <FrameLayout
-        android:id="@+id/main_content"
-        android:name="com.example.gm_challenge.ItemFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layout_constraintStart_toEndOf="@id/fragment_navigation_drawer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+        <FrameLayout
+            android:id="@+id/main_content"
+            android:name="com.example.gm_challenge.ItemFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

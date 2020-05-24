@@ -9,6 +9,7 @@ import com.example.gm_challenge.model.data.element.Tag
 import com.example.gm_challenge.view.fragment.ElementFragment
 import com.example.gm_challenge.view.fragment.ItemFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener {
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         setupDrawer()
 
         this.savedInstanceState = savedInstanceState
+        displayView(null)
     }
 
     private fun setupToolbar() {
@@ -54,10 +56,10 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         displayView(tag)
     }
 
-    private fun displayView(tag: Tag) {
+    private fun displayView(tag: Tag?) {
         val fragment: Fragment?
         fragment = ItemFragment()
-        title = getString(R.string.nav_item_two)
+        title = tag?.name ?: getString(R.string.last_fm)
 
         if (savedInstanceState == null) {
             val bundle = Bundle()

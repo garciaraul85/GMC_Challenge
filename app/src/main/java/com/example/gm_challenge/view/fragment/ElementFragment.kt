@@ -10,9 +10,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.element.Tag
+import com.example.gm_challenge.model.data.item.Track
+import com.example.gm_challenge.util.SimpleDividerItemDecoration
 import com.example.gm_challenge.view.adapter.ElementAdapter
 import com.example.gm_challenge.viewmodel.ElementViewModel
 import kotlinx.android.synthetic.main.fragment_element.*
+import kotlinx.android.synthetic.main.fragment_element.messageText
+import kotlinx.android.synthetic.main.fragment_element.progressBar
+import kotlinx.android.synthetic.main.fragment_element.rv_drawer_list
+import kotlinx.android.synthetic.main.fragment_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ElementFragment : androidx.fragment.app.Fragment() {
@@ -62,10 +68,41 @@ class ElementFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun getElementsData() {
-        viewModel.elementLiveData.observe(this, Observer {
-            adapter.update(it)
+        viewModel.elementLiveData.observe(this, Observer { appState ->
+            when (appState) {
+                is ElementViewModel.AppState.LOADING -> displayLoading()
+                is ElementViewModel.AppState.SUCCESS -> displayTracks(appState.wordsList)
+                is ElementViewModel.AppState.ERROR -> displayMessage(appState.message)
+                else -> displayMessage("Something Went Wrong... Try Again.")
+            }
         })
         viewModel.getElements()
+    }
+
+    private fun displayTracks(tagList: MutableList<Tag>) {
+        // set recycler to eliminate flicker
+        adapter.update(tagList)
+
+        // set correct visible element
+        progressBar.visibility = View.GONE
+        rv_drawer_list.visibility = View.VISIBLE
+        messageText.visibility = View.GONE
+    }
+
+    private fun displayLoading() {
+        // set correct visible element
+        progressBar.visibility = View.VISIBLE
+        rv_drawer_list.visibility = View.GONE
+        messageText.visibility = View.GONE
+    }
+
+    private fun displayMessage(message: String) {
+        // set correct visible element
+        progressBar.visibility = View.GONE
+        rv_drawer_list.visibility = View.GONE
+        messageText.visibility = View.VISIBLE
+        //set message
+        messageText.text = message
     }
 
     private fun elementClicked(position: Int, tag: Tag) {

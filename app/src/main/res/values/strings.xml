@@ -12,6 +12,8 @@
     <string name="item_one">One1</string>
     <string name="item_two">Two2</string>
     <string name="item_three">Three3</string>
+    <string name="genre">genre</string>
+    <string name="last_fm">Last FM</string>
 
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_one</item>

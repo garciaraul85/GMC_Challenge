@@ -23,4 +23,49 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="elementRoundImage">
+        <item name="android:background">@color/element_round_bg</item>
+        <item name="android:layout_margin">@dimen/element_round_margin</item>
+        <item name="android:elevation">@dimen/element_round_elevation</item>
+    </style>
+
+    <style name="elementName">
+        <item name="android:layout_marginStart">@dimen/element_name_margin_start</item>
+        <item name="android:textSize">@dimen/element_name</item>
+        <item name="android:textColor">@color/element_name_txt_color</item>
+        <item name="android:paddingTop">@dimen/element_name_padding_top</item>
+        <item name="android:paddingEnd">@dimen/element_name_padding_end</item>
+        <item name="android:paddingBottom">@dimen/element_name_padding_bottom</item>
+    </style>
+
+    <style name="elementGenre">
+        <item name="android:background">@drawable/ripple_effect_15dp_radius</item>
+        <item name="android:textSize">@dimen/genre_txt_size</item>
+        <item name="android:textColor">@color/genre_text_color</item>
+        <item name="android:maxWidth">@dimen/genre_max_width</item>
+        <item name="android:paddingStart">@dimen/genre_padding_start</item>
+        <item name="android:paddingEnd">@dimen/genre_padding_end</item>
+        <item name="android:paddingTop">@dimen/genre_padding_top</item>
+        <item name="android:paddingBottom">@dimen/genre_padding_bottom</item>
+    </style>
+
+    <style name="elementCount">
+        <item name="android:background">@drawable/ripple_effect_15dp_radius</item>
+        <item name="android:textSize">@dimen/genre_txt_size</item>
+        <item name="android:textColor">@color/FlatYellow</item>
+        <item name="android:maxWidth">@dimen/genre_max_width</item>
+        <item name="android:paddingStart">@dimen/count_padding</item>
+        <item name="android:paddingEnd">@dimen/count_padding</item>
+        <item name="android:layout_marginEnd">@dimen/count_margin_end</item>
+    </style>
+
+    <style name="elementReach">
+        <item name="android:textSize">@dimen/element_reach_txt_size</item>
+        <item name="android:textColor">@color/FlatYellow</item>
+        <item name="android:paddingStart">@dimen/reach_padding</item>
+        <item name="android:paddingEnd">@dimen/reach_padding</item>
+        <item name="android:layout_marginEnd">@dimen/reach_margin</item>
+    </style>
+
+
 </resources>
