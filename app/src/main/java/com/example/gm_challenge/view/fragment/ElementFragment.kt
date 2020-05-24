@@ -10,15 +10,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.element.Tag
-import com.example.gm_challenge.model.data.item.Track
-import com.example.gm_challenge.util.SimpleDividerItemDecoration
 import com.example.gm_challenge.view.adapter.ElementAdapter
 import com.example.gm_challenge.viewmodel.ElementViewModel
-import kotlinx.android.synthetic.main.fragment_element.*
 import kotlinx.android.synthetic.main.fragment_element.messageText
 import kotlinx.android.synthetic.main.fragment_element.progressBar
 import kotlinx.android.synthetic.main.fragment_element.rv_drawer_list
-import kotlinx.android.synthetic.main.fragment_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ElementFragment : androidx.fragment.app.Fragment() {
@@ -71,7 +67,7 @@ class ElementFragment : androidx.fragment.app.Fragment() {
         viewModel.elementLiveData.observe(this, Observer { appState ->
             when (appState) {
                 is ElementViewModel.AppState.LOADING -> displayLoading()
-                is ElementViewModel.AppState.SUCCESS -> displayTracks(appState.wordsList)
+                is ElementViewModel.AppState.SUCCESS -> displayTracks(appState.elementsList)
                 is ElementViewModel.AppState.ERROR -> displayMessage(appState.message)
                 else -> displayMessage("Something Went Wrong... Try Again.")
             }

@@ -42,7 +42,7 @@ class ElementViewModel(private val lastFMRepository: Repository): ViewModel() {
 
     sealed class AppState {
         object LOADING : AppState()
-        data class SUCCESS(val wordsList: MutableList<Tag>) : AppState()
+        data class SUCCESS(val elementsList: MutableList<Tag>) : AppState()
         data class ERROR(val message: String) : AppState()
     }
 }

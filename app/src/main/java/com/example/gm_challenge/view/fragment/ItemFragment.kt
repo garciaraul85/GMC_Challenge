@@ -40,7 +40,7 @@ class ItemFragment : androidx.fragment.app.Fragment() {
         viewModel.itemLiveData.observe(this, Observer { appState ->
             when (appState) {
                 is ItemViewModel.AppState.LOADING -> displayLoading()
-                is ItemViewModel.AppState.SUCCESS -> displayTracks(appState.wordsList)
+                is ItemViewModel.AppState.SUCCESS -> displayTracks(appState.itemsList)
                 is ItemViewModel.AppState.ERROR -> displayMessage(appState.message)
                 else -> displayMessage("Something Went Wrong... Try Again.")
             }
