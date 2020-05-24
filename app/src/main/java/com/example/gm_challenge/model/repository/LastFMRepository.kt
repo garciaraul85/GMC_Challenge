@@ -7,9 +7,9 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-open class LastFMRepository(private val lastFMRestService: LastFMRestService) {
+open class LastFMRepository(private val lastFMRestService: LastFMRestService): Repository {
 
-    fun getTopTags(): Single<MutableList<Tag>> {
+    override fun getTopTags(): Single<MutableList<Tag>> {
         return lastFMRestService
             .getTopTag()
             .map {
@@ -19,7 +19,7 @@ open class LastFMRepository(private val lastFMRestService: LastFMRestService) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getTopTracksByTag(tag: Tag): Single<MutableList<Track>> {
+    override fun getTopTracksByTag(tag: Tag): Single<MutableList<Track>> {
         return lastFMRestService
             .getTopTracksByTag(tag.name)
             .map {
