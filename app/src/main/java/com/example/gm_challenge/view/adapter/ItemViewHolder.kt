@@ -16,11 +16,11 @@ class ItemViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.Vie
         itemView.duration.text = timeFormater(itemDrawer.duration.toDouble().toLong())
 
         if (previousSelectedItem == position) {
-            itemView.preview_button.setBackgroundResource(R.drawable.pause_round)
+            itemView.preview_button.setImageResource(R.drawable.pause_round)
             itemView.setBackgroundColor(R.color.FlatWhite)
             itemView.alpha = 0.7f
         } else {
-            itemView.preview_button.setBackgroundResource(R.drawable.play_round)
+            itemView.preview_button.setImageResource(R.drawable.play_round)
             itemView.setBackgroundColor(R.color.white)
             itemView.alpha = 1f
         }

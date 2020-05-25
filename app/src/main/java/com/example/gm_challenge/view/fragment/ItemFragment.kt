@@ -46,8 +46,8 @@ class ItemFragment : androidx.fragment.app.Fragment() {
             }
         })
 
-        rv_drawer_list.adapter = adapter
-        rv_drawer_list.layoutManager =
+        rv_item_list.adapter = adapter
+        rv_item_list.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(activity)
         tag?.let { viewModel.getItemByElements(it) }
 
@@ -59,21 +59,21 @@ class ItemFragment : androidx.fragment.app.Fragment() {
 
         // set correct visible element
         progressBar.visibility = View.GONE
-        rv_drawer_list.visibility = View.VISIBLE
+        rv_item_list.visibility = View.VISIBLE
         messageText.visibility = View.GONE
     }
 
     private fun displayLoading() {
         // set correct visible element
         progressBar.visibility = View.VISIBLE
-        rv_drawer_list.visibility = View.GONE
+        rv_item_list.visibility = View.GONE
         messageText.visibility = View.GONE
     }
 
     private fun displayMessage(message: String) {
         // set correct visible element
         progressBar.visibility = View.GONE
-        rv_drawer_list.visibility = View.GONE
+        rv_item_list.visibility = View.GONE
         messageText.visibility = View.VISIBLE
         //set message
         messageText.text = message
