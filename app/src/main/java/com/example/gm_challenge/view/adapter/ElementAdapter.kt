@@ -7,7 +7,8 @@ import com.example.gm_challenge.model.data.element.Element
 import com.example.gm_challenge.model.data.element.Tag
 
 class ElementAdapter(private var previousSelectedItem: Int = -1,
-                     private val clickListener: (Int, Tag) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<ElementViewHolder>() {
+                     private val clickListener: (Int, Tag) -> Unit) :
+    androidx.recyclerview.widget.RecyclerView.Adapter<ElementViewHolder>() {
     private var elements: MutableList<Tag> = mutableListOf()
 
     override fun getItemCount() = elements.size

@@ -6,6 +6,7 @@ import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.item.Track
 
 class ItemAdapter(var previousSelectedItem: Int = -1,
+                  var currentTrack: Track?,
                   private val clickListener: (Int, Track) -> Unit) :
     androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
     private var items: MutableList<Track> = mutableListOf()
@@ -13,17 +14,29 @@ class ItemAdapter(var previousSelectedItem: Int = -1,
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        if (currentTrack != null && position == previousSelectedItem) {
+            items[position] = currentTrack!!
+            currentTrack = null
+        }
         holder.bindItem(items[position], position, previousSelectedItem)
 
+
         holder.itemView.setOnClickListener {
-            items[position].isPlaying = true
-            if (previousSelectedItem >= 0 && position != previousSelectedItem) {
-                items[previousSelectedItem].isPlaying = false
+            if (previousSelectedItem >= 0) {
+                items[position].isPlaying = items[previousSelectedItem].isPlaying
+                items[previousSelectedItem].isPlaying = !items[previousSelectedItem].isPlaying
+            } else {
+                items[position].isPlaying = true
             }
+
             clickListener(position, items[position])
             previousSelectedItem = position
             notifyDataSetChanged()
         }
+    }
+
+    fun getCurrentSong(): Track {
+        return items[previousSelectedItem]
     }
 
     fun playNextSong(): Track {
@@ -31,8 +44,6 @@ class ItemAdapter(var previousSelectedItem: Int = -1,
         if (previousSelectedItem < items.size) {
             previousSelectedItem++
         }
-
-        items[previousSelectedItem].isPlaying = true
         return items[previousSelectedItem]
     }
 
@@ -41,7 +52,6 @@ class ItemAdapter(var previousSelectedItem: Int = -1,
         if (previousSelectedItem > 0) {
             previousSelectedItem--
         }
-        items[previousSelectedItem].isPlaying = true
         return items[previousSelectedItem]
     }
 

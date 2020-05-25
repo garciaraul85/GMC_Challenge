@@ -26,6 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ItemFragment : androidx.fragment.app.Fragment() {
     private lateinit var adapter: ItemAdapter
     private var lastSelectedOption = -1
+    private var currentTrack: Track? = null
 
     private val viewModel: ItemViewModel by viewModel()
 
@@ -41,13 +42,14 @@ class ItemFragment : androidx.fragment.app.Fragment() {
 
         savedInstanceState?.let {
             lastSelectedOption = it.getInt(LAST_SELECTED_OPTION2, -1)
+            currentTrack = it.getParcelable(PLAY_TRACK)
         }
 
         setupRecycler(tag)
     }
 
     private fun setupRecycler(tag: Tag?) {
-        adapter = ItemAdapter(lastSelectedOption) { item: Int, track: Track -> itemClicked(item, track) }
+        adapter = ItemAdapter(lastSelectedOption, currentTrack) { item: Int, track: Track -> itemClicked(item, track) }
         viewModel.itemLiveData.observe(this, Observer { appState ->
             when (appState) {
                 is ItemViewModel.AppState.LOADING -> displayLoading()
@@ -92,6 +94,7 @@ class ItemFragment : androidx.fragment.app.Fragment() {
 
     private fun itemClicked(position: Int, track: Track) {
         lastSelectedOption = position
+        currentTrack = track
 
         val intent = Intent(activity, PlayerService::class.java)
         intent.putExtra(PLAY_TRACK, track)
@@ -106,12 +109,16 @@ class ItemFragment : androidx.fragment.app.Fragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: MessageEvent) {
-        if (event.event == NEXT) {
-            EventBus.getDefault().post(adapter.playNextSong())
-        } else if (event.event == PREVIOUS) {
-            EventBus.getDefault().post(adapter.playPreviousSong())
+        when (event.event) {
+            NEXT -> {
+                EventBus.getDefault().post(adapter.playNextSong())
+                rv_drawer_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick()
+            }
+            PREVIOUS -> {
+                EventBus.getDefault().post(adapter.playPreviousSong())
+                rv_drawer_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick()
+            }
         }
-        rv_drawer_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick();
     }
 
     override fun onStop() {
@@ -122,6 +129,7 @@ class ItemFragment : androidx.fragment.app.Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(LAST_SELECTED_OPTION2, lastSelectedOption)
+        outState.putParcelable(PLAY_TRACK, adapter.getCurrentSong())
     }
 
     companion object {

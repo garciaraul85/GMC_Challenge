@@ -35,7 +35,6 @@ class PlayerService : Service() {
 
         when (intent.action) {
             Constants.ACTION.STARTFOREGROUND_ACTION -> {
-                Log.i(LOG_TAG, "Received Start Foreground Intent ")
                 if (intent.extras.containsKey(PLAY_TRACK)) {
                     track = intent.extras.getParcelable(PLAY_TRACK)
                 }
@@ -43,14 +42,6 @@ class PlayerService : Service() {
             }
             Constants.ACTION.PREV_ACTION -> {
                 EventBus.getDefault().post(MessageEvent(PREVIOUS))
-            }
-            Constants.ACTION.PLAY_ACTION -> {
-                track?.isPlaying = true
-                showNotification(track)
-            }
-            Constants.ACTION.PAUSE_ACTION -> {
-                track?.isPlaying = false
-                showNotification(track)
             }
             Constants.ACTION.NEXT_ACTION -> {
                 EventBus.getDefault().post(MessageEvent(NEXT))
@@ -87,20 +78,6 @@ class PlayerService : Service() {
             previousIntent, 0
         )
 
-        val playOrPauseIntent = Intent(this, PlayerService::class.java)
-        var playOrPauseString = ""
-        if (track?.isPlaying == true) {
-            playOrPauseString = "Pause"
-            playOrPauseIntent.action = Constants.ACTION.PAUSE_ACTION
-        } else {
-            playOrPauseString = "Play"
-            playOrPauseIntent.action = Constants.ACTION.PLAY_ACTION
-        }
-        val pplayPauseIntent = PendingIntent.getService(
-            this, 0,
-            playOrPauseIntent, 0
-        )
-
         val nextIntent = Intent(this, PlayerService::class.java)
         nextIntent.action = Constants.ACTION.NEXT_ACTION
         val pnextIntent = PendingIntent.getService(
@@ -123,10 +100,6 @@ class PlayerService : Service() {
             .addAction(
                 R.drawable.ic_media_previous, "Previous",
                 ppreviousIntent
-            )
-            .addAction(
-                R.drawable.ic_media_play, playOrPauseString,
-                pplayPauseIntent
             )
             .addAction(
                 R.drawable.ic_media_next, "Next",
