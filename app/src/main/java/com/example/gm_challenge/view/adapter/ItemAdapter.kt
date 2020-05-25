@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.item.Track
 
-class ItemAdapter(private var previousSelectedItem: Int = -1,
-                  private val clickListener: (Int) -> Unit) :
+class ItemAdapter(var previousSelectedItem: Int = -1,
+                  private val clickListener: (Int, Track) -> Unit) :
     androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
     private var items: MutableList<Track> = mutableListOf()
 
@@ -16,10 +16,28 @@ class ItemAdapter(private var previousSelectedItem: Int = -1,
         holder.bindItem(items[position], position, previousSelectedItem)
 
         holder.itemView.setOnClickListener {
-            clickListener(position)
+            clickListener(position, items[position])
             previousSelectedItem = position
             notifyDataSetChanged()
         }
+    }
+
+    fun playNextSong(): Track {
+        items[previousSelectedItem].isPlaying = false
+        if (previousSelectedItem < items.size) {
+            previousSelectedItem++
+        }
+        items[previousSelectedItem].isPlaying = true
+        return items[previousSelectedItem]
+    }
+
+    fun playPreviousSong(): Track {
+        items[previousSelectedItem].isPlaying = false
+        if (previousSelectedItem > 0) {
+            previousSelectedItem--
+        }
+        items[previousSelectedItem].isPlaying = true
+        return items[previousSelectedItem]
     }
 
     fun update(items: MutableList<Track>) {

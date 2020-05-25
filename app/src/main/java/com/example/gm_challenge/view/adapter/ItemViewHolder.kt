@@ -25,4 +25,6 @@ class ItemViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.Vie
             itemView.alpha = 1f
         }
     }
+
+
 }
