@@ -96,16 +96,12 @@ class ItemFragment : androidx.fragment.app.Fragment() {
         val intent = Intent(activity, PlayerService::class.java)
         intent.putExtra(PLAY_TRACK, track)
 
-        if (!track.isPlaying) {
-            track.isPlaying = true
+        if (!PlayerService.IS_SERVICE_RUNNING) {
             intent.action = Constants.ACTION.STARTFOREGROUND_ACTION
             PlayerService.IS_SERVICE_RUNNING = true
-        } else {
-            track.isPlaying = false
-            intent.action = Constants.ACTION.STOPFOREGROUND_ACTION
-            PlayerService.IS_SERVICE_RUNNING = false
+            activity?.startService(intent)
         }
-        activity?.startService(intent)
+        EventBus.getDefault().post(track)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -115,6 +111,7 @@ class ItemFragment : androidx.fragment.app.Fragment() {
         } else if (event.event == PREVIOUS) {
             EventBus.getDefault().post(adapter.playPreviousSong())
         }
+        rv_drawer_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick();
     }
 
     override fun onStop() {

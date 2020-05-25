@@ -16,6 +16,7 @@ class ItemAdapter(var previousSelectedItem: Int = -1,
         holder.bindItem(items[position], position, previousSelectedItem)
 
         holder.itemView.setOnClickListener {
+            items[position].isPlaying = !items[position].isPlaying
             clickListener(position, items[position])
             previousSelectedItem = position
             notifyDataSetChanged()
@@ -27,6 +28,7 @@ class ItemAdapter(var previousSelectedItem: Int = -1,
         if (previousSelectedItem < items.size) {
             previousSelectedItem++
         }
+
         items[previousSelectedItem].isPlaying = true
         return items[previousSelectedItem]
     }

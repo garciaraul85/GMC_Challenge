@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.gm_challenge.model.data.item.Track
 import com.example.gm_challenge.service.MessageEvent.Companion.NEXT
-import com.example.gm_challenge.service.MessageEvent.Companion.PAUSE
 import com.example.gm_challenge.service.MessageEvent.Companion.PREVIOUS
 import com.example.gm_challenge.view.MainActivity
 import com.example.gm_challenge.view.fragment.ItemFragment.Companion.PLAY_TRACK
@@ -28,7 +27,6 @@ class PlayerService : Service() {
     }
 
     private var track: Track? = null
-    private lateinit var notification: Notification
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         if (!EventBus.getDefault().isRegistered(this)) {
@@ -42,33 +40,23 @@ class PlayerService : Service() {
                     track = intent.extras.getParcelable(PLAY_TRACK)
                 }
                 showNotification(track)
-                Toast.makeText(this, "Service Started!", Toast.LENGTH_SHORT).show()
             }
             Constants.ACTION.PREV_ACTION -> {
-                Log.i(LOG_TAG, "Clicked Previous")
                 EventBus.getDefault().post(MessageEvent(PREVIOUS))
-                Toast.makeText(this, "Clicked Previous!", Toast.LENGTH_SHORT)
-                    .show()
             }
             Constants.ACTION.PLAY_ACTION -> {
                 track?.isPlaying = true
-                showNotification(track)
                 Log.i(LOG_TAG, "Clicked Play")
-                Toast.makeText(this, "Clicked Play!", Toast.LENGTH_SHORT).show()
             }
             Constants.ACTION.PAUSE_ACTION -> {
                 track?.isPlaying = false
                 showNotification(track)
-                Log.i(LOG_TAG, "Clicked Pause")
-                Toast.makeText(this, "Clicked Pause!", Toast.LENGTH_SHORT).show()
             }
             Constants.ACTION.NEXT_ACTION -> {
                 Log.i(LOG_TAG, "Clicked Next")
                 EventBus.getDefault().post(MessageEvent(NEXT))
-                Toast.makeText(this, "Clicked Next!", Toast.LENGTH_SHORT).show()
             }
             Constants.ACTION.STOPFOREGROUND_ACTION -> {
-                Log.i(LOG_TAG, "Received Stop Foreground Intent")
                 stopForeground(true)
                 stopSelf()
             }
