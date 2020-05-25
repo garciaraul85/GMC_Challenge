@@ -11,6 +11,9 @@
     <color name="riv_border_color">#20F5F5F5</color>
     <color name="element_name_txt_color">#FAFAFA</color>
     <color name="genre_text_color">#888</color>
+    <color name="riv_border_color2">#66F5F5F5</color>
+    <color name="artist_text_color">#CCF5F5F5</color>
+    <color name="duration_text_color">#AAEEEEEE</color>
     <item name="FlatWhite" type="color">#F5F5F5</item>
     <item name="FlatGreen" type="color">#567845</item>
     <item name="white" type="color">#ffffff</item>

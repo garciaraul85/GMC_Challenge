@@ -49,12 +49,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/name"
             style="@style/elementName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,6 @@
             style="@style/elementCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintBottom_toBottomOf="@id/image"/>
 
@@ -88,7 +87,6 @@
             style="@style/elementCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/count"
             app:layout_constraintBottom_toBottomOf="@id/image"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

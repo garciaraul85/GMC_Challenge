@@ -31,4 +31,9 @@
     <dimen name="element_reach_txt_size">20sp</dimen>
     <dimen name="reach_padding">4dp</dimen>
     <dimen name="reach_margin">2dp</dimen>
+    <dimen name="song_text_style">20sp</dimen>
+    <dimen name="artist_text_size">20sp</dimen>
+    <dimen name="duration_margin_start">10dp</dimen>
+    <dimen name="duration_margin_end">10dp</dimen>
+    <dimen name="duration_text_size">18sp</dimen>
 </resources>

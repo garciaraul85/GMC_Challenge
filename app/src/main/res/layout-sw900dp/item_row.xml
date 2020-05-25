@@ -6,20 +6,17 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="20dp"
-    app:contentPadding="15dp"
-    app:cardElevation="4dp"
-    app:cardMaxElevation="6dp">
+    android:layout_margin="@dimen/cardview_item_margin"
+    app:cardCornerRadius="@dimen/cardview_corner_radius"
+    app:contentPadding="@dimen/cardview_content_padding"
+    app:cardElevation="@dimen/cardview_elevation"
+    app:cardMaxElevation="@dimen/cardview_max_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp">
+        style="@style/rootStyle">
+
         <View
             android:id="@+id/panel_color"
             android:layout_width="match_parent"
@@ -40,16 +37,15 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
+            style="@style/roundedImage"
             android:src="@drawable/music_empty"
             app:riv_oval="true"
             app:riv_border_width="1dp"
-            app:riv_border_color="#66F5F5F5"
+            app:riv_border_color="@color/riv_border_color2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+
         <TextView
             android:id="@+id/song"
             android:layout_width="wrap_content"
@@ -57,7 +53,7 @@
             android:layout_marginStart="12dp"
             android:textStyle="bold"
             android:textColor="@color/FlatWhite"
-            android:textSize="20sp"
+            android:textSize="@dimen/song_text_style"
             android:ellipsize="end"
             android:maxLines="1"
             app:layout_constraintTop_toTopOf="parent"
@@ -70,11 +66,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="#CCF5F5F5"
-            android:text="Pop"
+            android:textColor="@color/artist_text_color"
+            android:text="@string/artist"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textSize="20sp"
+            android:textSize="@dimen/artist_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/song"
             app:layout_constraintStart_toStartOf="@id/song"/>
@@ -83,12 +79,12 @@
             android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:textColor="#AAEEEEEE"
+            android:layout_marginStart="@dimen/duration_margin_start"
+            android:layout_marginEnd="@dimen/duration_margin_end"
+            android:textColor="@color/duration_text_color"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="@dimen/duration_text_size"
             android:textStyle="bold"
             tools:text="5 min"
             app:layout_constraintTop_toTopOf="parent"
@@ -97,10 +93,10 @@
 
         <ImageView
             android:id="@+id/preview_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/preview_width"
+            android:layout_height="@dimen/preview_height"
             android:background="@drawable/ripple_oval"
-            android:padding="9dp"
+            android:padding="@dimen/preview_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/panel_color"
             app:layout_constraintTop_toTopOf="parent" />
