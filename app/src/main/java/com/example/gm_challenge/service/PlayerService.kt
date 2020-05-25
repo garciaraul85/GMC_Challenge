@@ -46,14 +46,13 @@ class PlayerService : Service() {
             }
             Constants.ACTION.PLAY_ACTION -> {
                 track?.isPlaying = true
-                Log.i(LOG_TAG, "Clicked Play")
+                showNotification(track)
             }
             Constants.ACTION.PAUSE_ACTION -> {
                 track?.isPlaying = false
                 showNotification(track)
             }
             Constants.ACTION.NEXT_ACTION -> {
-                Log.i(LOG_TAG, "Clicked Next")
                 EventBus.getDefault().post(MessageEvent(NEXT))
             }
             Constants.ACTION.STOPFOREGROUND_ACTION -> {

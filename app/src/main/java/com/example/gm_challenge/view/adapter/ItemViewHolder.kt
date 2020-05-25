@@ -26,5 +26,4 @@ class ItemViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.Vie
         }
     }
 
-
 }
