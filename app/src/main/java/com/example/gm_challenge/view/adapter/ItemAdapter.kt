@@ -5,21 +5,54 @@ import android.view.ViewGroup
 import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.item.Track
 
-class ItemAdapter(private var previousSelectedItem: Int = -1,
-                  private val clickListener: (Int) -> Unit) :
+class ItemAdapter(var previousSelectedItem: Int = -1,
+                  var currentTrack: Track?,
+                  private val clickListener: (Int, Track) -> Unit) :
     androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
     private var items: MutableList<Track> = mutableListOf()
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        if (currentTrack != null && position == previousSelectedItem) {
+            items[position] = currentTrack!!
+            currentTrack = null
+        }
         holder.bindItem(items[position], position, previousSelectedItem)
 
+
         holder.itemView.setOnClickListener {
-            clickListener(position)
+            if (previousSelectedItem >= 0) {
+                items[position].isPlaying = items[previousSelectedItem].isPlaying
+                items[previousSelectedItem].isPlaying = !items[previousSelectedItem].isPlaying
+            } else {
+                items[position].isPlaying = true
+            }
+
+            clickListener(position, items[position])
             previousSelectedItem = position
             notifyDataSetChanged()
         }
+    }
+
+    fun getCurrentSong(): Track {
+        return items[previousSelectedItem]
+    }
+
+    fun playNextSong(): Track {
+        items[previousSelectedItem].isPlaying = false
+        if (previousSelectedItem < items.size) {
+            previousSelectedItem++
+        }
+        return items[previousSelectedItem]
+    }
+
+    fun playPreviousSong(): Track {
+        items[previousSelectedItem].isPlaying = false
+        if (previousSelectedItem > 0) {
+            previousSelectedItem--
+        }
+        return items[previousSelectedItem]
     }
 
     fun update(items: MutableList<Track>) {

@@ -15,7 +15,7 @@ class ItemViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.Vie
         itemView.artist.text = itemDrawer.artist.name
         itemView.duration.text = timeFormater(itemDrawer.duration.toDouble().toLong())
 
-        if (previousSelectedItem == position) {
+        if (previousSelectedItem == position && itemDrawer.isPlaying) {
             itemView.preview_button.setBackgroundResource(R.drawable.pause_round)
             itemView.setBackgroundColor(R.color.FlatWhite)
             itemView.alpha = 0.7f
@@ -25,4 +25,5 @@ class ItemViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.Vie
             itemView.alpha = 1f
         }
     }
+
 }

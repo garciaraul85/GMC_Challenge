@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
         }
 
         setupToolbar()
-
         setupDrawer()
 
         this.savedInstanceState = savedInstanceState
@@ -59,9 +58,9 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
     private fun displayView(tag: Tag?) {
         val fragment: Fragment?
         fragment = ItemFragment()
-        title = tag?.name ?: getString(R.string.last_fm)
 
         if (savedInstanceState == null) {
+            title = tag?.name ?: getString(R.string.last_fm)
             val bundle = Bundle()
             bundle.putParcelable(ELEMENT, tag)
             fragment.setArguments(bundle)
@@ -70,9 +69,16 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.main_content, fragment)
             fragmentTransaction.commit()
-            toolbarTitle.text = title
+        } else {
+            title = savedInstanceState?.getString(CURRENT_TITLE, getString(R.string.last_fm)) ?: getString(R.string.last_fm)
         }
+        toolbarTitle.text = title
         savedInstanceState = null
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(CURRENT_TITLE, title as String?)
     }
 
     private fun isTablet(): Boolean {
@@ -81,6 +87,7 @@ class MainActivity : AppCompatActivity(), ElementFragment.FragmentDrawerListener
 
     companion object {
         const val ELEMENT = "element"
+        const val CURRENT_TITLE = "currentTitle"
     }
 
 }

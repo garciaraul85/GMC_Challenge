@@ -73,4 +73,7 @@ dependencies {
     // Round Image View
     implementation "com.makeramen:roundedimageview:2.3.0"
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    // Eventbus
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }

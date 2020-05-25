@@ -3,6 +3,7 @@
     package="com.example.gm_challenge">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="com.example.gm_challenge.di.BaseApplication"
@@ -23,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".service.PlayerService"/>
     </application>
 
 </manifest>
