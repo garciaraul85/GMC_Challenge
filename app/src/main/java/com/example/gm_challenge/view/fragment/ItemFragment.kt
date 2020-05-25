@@ -1,5 +1,6 @@
 package com.example.gm_challenge.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import androidx.lifecycle.Observer
 import com.example.gm_challenge.R
 import com.example.gm_challenge.model.data.element.Tag
 import com.example.gm_challenge.model.data.item.Track
+import com.example.gm_challenge.service.Constants
+import com.example.gm_challenge.service.PlayerService
 import com.example.gm_challenge.view.MainActivity.Companion.ELEMENT
 import com.example.gm_challenge.view.adapter.ItemAdapter
 import com.example.gm_challenge.viewmodel.ItemViewModel
@@ -79,8 +82,17 @@ class ItemFragment : androidx.fragment.app.Fragment() {
         messageText.text = message
     }
 
-    private fun partItemClicked(word: Int) {
-        lastSelectedOption = word
+    private fun partItemClicked(position: Int) {
+        lastSelectedOption = position
+        val service = Intent(activity, PlayerService::class.java)
+        if (!PlayerService.IS_SERVICE_RUNNING) {
+            service.action = Constants.ACTION.STARTFOREGROUND_ACTION
+            PlayerService.IS_SERVICE_RUNNING = true
+        } else {
+            service.action = Constants.ACTION.STOPFOREGROUND_ACTION
+            PlayerService.IS_SERVICE_RUNNING = false
+        }
+        activity?.startService(service)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
