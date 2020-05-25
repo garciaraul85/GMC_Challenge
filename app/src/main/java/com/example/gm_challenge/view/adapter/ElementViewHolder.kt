@@ -1,7 +1,6 @@
 package com.example.gm_challenge.view.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.View
 import com.example.gm_challenge.model.data.element.Tag
 import com.example.gm_challenge.util.coolFormat

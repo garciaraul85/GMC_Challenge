@@ -12,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-
 val networkModule = module {
     factory { provideOkHttpClient(getProperty(API_KEY_PROPERTY)) }
     factory { provideApi(get()) }

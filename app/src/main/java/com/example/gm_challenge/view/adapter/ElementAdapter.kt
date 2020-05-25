@@ -3,7 +3,6 @@ package com.example.gm_challenge.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.gm_challenge.R
-import com.example.gm_challenge.model.data.element.Element
 import com.example.gm_challenge.model.data.element.Tag
 
 class ElementAdapter(private var previousSelectedItem: Int = -1,
