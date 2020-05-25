@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.example.gm_challenge.model.data.element.Tag
 import com.example.gm_challenge.model.data.item.Track
 import com.example.gm_challenge.model.repository.Repository
-import com.example.gm_challenge.util.resources.EspressoIdlingResource
 import io.reactivex.disposables.CompositeDisposable
 import java.net.UnknownHostException
 
@@ -18,7 +17,6 @@ class ItemViewModel(private val lastFMRepository: Repository): ViewModel() {
         get() = itemMutableLiveData
 
     fun getItemByElements(tag: Tag) {
-        EspressoIdlingResource.increment() // stops Espresso tests from going forward
         itemMutableLiveData.value = AppState.LOADING
         disposable.add(
             lastFMRepository.getTopTracksByTag(tag)
@@ -28,7 +26,6 @@ class ItemViewModel(private val lastFMRepository: Repository): ViewModel() {
                     } else {
                         itemMutableLiveData.value = AppState.SUCCESS(it)
                     }
-                    EspressoIdlingResource.decrement() // Tells Espresso test to resume
                 }, {
                     //errors
                     val errorString = when (it) {
@@ -36,7 +33,6 @@ class ItemViewModel(private val lastFMRepository: Repository): ViewModel() {
                         else -> it.localizedMessage
                     }
                     itemMutableLiveData.value = AppState.ERROR(errorString)
-                    EspressoIdlingResource.decrement() // Tells Espresso test to resume
                 })
         )
     }

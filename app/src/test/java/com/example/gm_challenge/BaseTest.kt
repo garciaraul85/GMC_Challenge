@@ -6,7 +6,6 @@ import com.example.gm_challenge.di.networkModule
 import com.example.gm_challenge.di.repositoryModule
 import com.example.gm_challenge.di.viewModelModule
 import com.example.gm_challenge.model.repository.LastFMRepository
-import com.example.gm_challenge.viewmodel.ElementViewModel
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

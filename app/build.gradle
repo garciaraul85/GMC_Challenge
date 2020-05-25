@@ -30,6 +30,13 @@ android {
     dataBinding {
         enabled = true
     }
+    flavorDimensions "version"
+    productFlavors {
+        prod {
+        }
+        mock {
+        }
+    }
 }
 
 dependencies {
