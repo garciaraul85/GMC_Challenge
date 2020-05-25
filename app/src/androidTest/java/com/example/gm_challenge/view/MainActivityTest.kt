@@ -1,39 +1,23 @@
 package com.example.gm_challenge.view
 
-import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
 import com.example.gm_challenge.CustomMatchers.Companion.withDrawable
 import com.example.gm_challenge.CustomMatchers.Companion.withRecyclerView
 import com.example.gm_challenge.R
-import com.example.gm_challenge.util.resources.EspressoIdlingResource
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
-    @get:Rule
-    val activityRule = ActivityTestRule(MainActivity::class.java, false, false)
-
-    @Before
-    fun setUp() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
-    }
+class MainActivityTest: BaseActivityTest() {
 
     @Test
     fun onElementLoadTabletAndLandscape_clickElement_loadsItems_clickItem() {
-        // launch activity
-        ActivityScenario.launch(MainActivity::class.java)
-
         // Check element at position 0 has genre as rock
         onView(withRecyclerView(R.id.rv_drawer_list)?.atPosition(0))
             .check(matches(ViewMatchers.hasDescendant(ViewMatchers.withText("rock"))))
@@ -62,9 +46,6 @@ class MainActivityTest {
 
     @Test
     fun onElementLoadPortrait_clickElement_loadsItems_clickItem() {
-        // launch activity
-        ActivityScenario.launch(MainActivity::class.java)
-
         // Open Drawer to click on navigation.
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
 
