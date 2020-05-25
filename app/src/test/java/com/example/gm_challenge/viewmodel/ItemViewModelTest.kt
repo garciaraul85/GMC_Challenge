@@ -39,7 +39,7 @@ class ItemViewModelTest: BaseTest() {
         val artist = Artist("Michael Jackson", "", "")
         val streamable = Streamable(1, 1)
         val track = Track("BillieJean",1, "", "",
-            streamable, artist, images)
+            streamable, artist, images, false)
 
         val response = mutableListOf(track)
 
