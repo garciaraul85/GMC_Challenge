@@ -56,21 +56,21 @@ If you rotate the device or put the app on the background, the selected element 
 * Kotlin
     I chose Kotlin instead of Java for because it generates less boiler plate code and its null safety feature makes greate to reduce crashes because of null pointer exception, which is probably the most common exception.
 * RecyclerView
-    I chose RecyclerViews because provides better perfomance againts listview, thanks to it's ability to recycle items because of its viewholder. Instead of loading 100 items at the same time, we can load 10 items at a time for example and when you scroll, you can use the items not visible to the user and then some items that you were using go out of the visibility range and as you keep scrolling, you can re-use the first items that became invisible and load new data.
+    I chose RecyclerViews because provides better perfomance againts listview, thanks to it's ability to recycle items because of its viewholder. For example instead of loading 100 items at the same time, we can load 10 items at a time and when you scroll, you can use the items not visible to the user to load new data and then some of the previously visible items will go out of the visibility range and so, as you keep scrolling, you can re-use the first items that became invisible and load new data.
 * CardView
     I chose CardViews in order to follow some of the material design principles.
 * Google architecture components (Livedata + Viewmodels)
-    I chose Viewmodels and Livedata because thanks to its lifecycle awareness, whenever there is a configuration change, the data in the viewmodel gets preserved and we can reduce potential memory leaks, as long as we don't pass an activity context to the viewmodel. 
+    I chose Viewmodels and Livedata because, thanks to its lifecycle awareness, whenever there is a configuration change, the data in the viewmodel gets preserved and we can reduce potential memory leaks, as long as we don't pass an activity context to the viewmodel. 
     
     Also through the use of livedata, we can load data into our view in an asynchronously manner using an observer pattern and therefore we won't have to worry about possible race conditions between the network data loading and the view loading, when we do "viewmodel.livedata.observe", whatever gets executed inside the lambda of the call it's guaranteed to get executed after the activity and fragment gets fully loaded. 
 
-    We can also get ride of callbacks that may come from implementing interfaces (if we've choosen MVP) and in doing so we can make our code less tight couple, because unlike MVP where presenter know about the view, in MVVM the view model doesn't know about the View and therefore it gets less tight couple ergo it gets easier to test a view model.
+    We can also get rid of callbacks that may come from implementing interfaces (if we've choosen MVP) and in doing so we can make our code less tight couple, because unlike MVP where presenter know about the view, in MVVM the viewmodel doesn't know about the View and therefore it gets less tight couple ergo it gets easier to test a view model.
 * RxJava
     I choose RxJava instead of async task, coroutines and intent services for the following reasons:
     - Async tasks have the nasty problem that if you pass the activity context to the async task and then you rotate the device, it can cause a memory leak and therefore the async task was never an option.
     - Intent service have the problem that you can't do parallel execution, unlike RxJava where you can chain calls and do parallel execution if you want to, you can even do different operations in RxJava such as map, flatmap, concatmap, zip, merge, skip, etc. 
-    - Coroutines seemed like a logical option if we go with Kotlin, they are easy to use and it allows us to do sequential programming, and because we need to use Kotlin; we can do similar operations to RxJava, but its weakness comes that they don't work directly with Java. If I've choosen Java, I would probably have to create a wrapper if I wanted to use coroutines and also RxJava support more operations for now.
-    - RxJava for me is the logical option for now, because it allows us do run intensive cpu operations that may block the main thread in an asychronously manner, we can chain multiple calls, do parallel execution and manipulate our streams and it doesn't matter if we use Java or Kotlin. Using an observale pattern, RxJava is a powerful tool.
+    - Coroutines seemed like a logical option if we go with Kotlin, they are easy to use and it allows us to do sequential programming, and because we need to use Kotlin; we can do similar operations to RxJava, but its weakness comes into that they don't work directly with Java. If I've choosen Java, I would probably have to create a wrapper.
+    - RxJava for me is the logical option for now, because it allows us do run intensive cpu operations that may block the main thread in an asychronously manner without blocking the main thread, we can chain multiple calls, do parallel execution and manipulate our streams and it doesn't matter if we use Java or Kotlin.
 * Koin
     Dependency injection is a powerful pattern that allows us to instead of manually creating and passing the dependencies ourselves, we let some sort of factory to add the dependencies for us and we really don't have to worry about adding those dependencies ourselves. With this approach you take the dependencies of a class and provide them rather than having the class instance obtain them itself.
     As a consequence of DI, we get the next benefits:
@@ -80,23 +80,23 @@ If you rotate the device or put the app on the background, the selected element 
     
     The reason I chose Koin instead of Dagger, was because not only is Koin easier to implement, but also I haven't had yet the opportunity to work with Koin and I wanted to play with it.
 * Retrofit
-    I choose Retrofit instead of Volley for the following reasons:
+    I chose Retrofit instead of Volley for the following reasons:
     Retrofit has full support for POST requests and multi part file uploads, with a sweet API to boot. Volley supports POST requests but you'll have to convert your Java objects to JSONObjects yourself (e.g., with Gson). Also supports multi part requests but you need to add these additional classes or equivalent.
 * Gson
     To serialize the json response into a pojo.
 * Round image
     For loading images as a circle.
 * Eventbus
-    I found it more convenient easier to send data between a fragment and a service instead of using interfaces and intents if I were to use a bound service, and also easier than having to implement a local broadcast receiver.
+    I found it more simpler and easier to send data between a fragment and a service instead of using interfaces, intents or local broadcast receivers.
 * JUnit
-    To write tests.
+    To write tests (I only wrote unit tests for my 2 view models).
     Thanks to the decision of using viewmodels and dependency injection, I can decouple my code and make it easier to mock my repositories for my viewmodel tests. 
 
-    If I've not decouple my repository and instead just created the repository in my viewmodel, I wouldn't have been able to mock my repository and therefore I wouldn't have been able to easily isolate my viewmodel in order to just test my viewmodel and when we are testing, we want to make sure that we just test our class and our class only, and the rest of the dependencies we just want to mock their behavior because later we will write tests for those other dependencies.
+    If I've not decouple my repository and instead just created the repository in my viewmodel, I wouldn't have been able to mock my repository and therefore I wouldn't have been able to easily isolate my viewmodel in order to just test my viewmodel and when we are testing, we want to make sure that we just test our class and our class only. Meanwhile the rest of the dependencies we just want to mock their behavior because later we can write tests for those other dependencies.
 * Mockito
     To mock my dependencies.
 * Espresso
-    To create my ui-tests. I created to branches for my ui-tests. The "espresso_tests_idling_example"(https://github.com/garciaraul85/GMC_Challenge/tree/espresso_tests_idling_example) uses idling resource so espresso waits for the network call to complete before finishing the test, this works when you are not running your tests behind a firewall. In case you are not able to run the tests because of the network, I created the branch "espresso_tests_mock_example" (https://github.com/garciaraul85/GMC_Challenge/tree/espresso_tests_mock_response), using build variants I created a mock repository and a mock module that injects the mock repository in my viewmodels so instead of making real network calls, we mock the calls not just when doing ui-tests, but also when running the app. This mock repository only runs when you select the mock variant.
+    To create my ui-tests. I created to branches for my ui-tests. The "espresso_tests_idling_example" uses idling resource so espresso waits for the network call to complete before finishing the test, this works when you are not running your tests behind a firewall. In case you are not able to run the tests because of the network, I created the branch "espresso_tests_mock_example", using build variants I created a mock repository and a mock module that injects the mock repository in my viewmodels so instead of making real network calls, we mock the calls not just when doing ui-tests, but also when running the app. This mock repository only runs when you select the mock variant.
 * Foreground service
     I used a foreground service and a notification to simulate the music player. This notification allows us to control the tracks of the app.
 
@@ -111,3 +111,4 @@ Using Google architectural patterns is the easiest way to implement this pattern
 ### Model
 Using the repository pattern I can achieve such separation between the actual network, queries and other data access logic from the rest of the application, that not only decouples by leaving the single responsability of accesing my data source to the repo but it makes it easier to test my viewmodel since there is less logic I have to worry about and I can easly write tests for my viewmodels and repositories. 
 I also do my thread context switching and RxJava operations in my model, in my case I can extract sublevels that I need from my data classes and just send the data to my view model and my view model just needs to worry in deciding what to tell the view to show; a list of something, an empty list or an error.
+
