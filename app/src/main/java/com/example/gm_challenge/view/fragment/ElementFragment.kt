@@ -69,7 +69,7 @@ class ElementFragment : androidx.fragment.app.Fragment() {
                 is ElementViewModel.AppState.LOADING -> displayLoading()
                 is ElementViewModel.AppState.SUCCESS -> displayTracks(appState.elementsList)
                 is ElementViewModel.AppState.ERROR -> displayMessage(appState.message)
-                else -> displayMessage("Something Went Wrong... Try Again.")
+                else -> displayMessage(getString(R.string.generic_error))
             }
         })
         viewModel.getElements()

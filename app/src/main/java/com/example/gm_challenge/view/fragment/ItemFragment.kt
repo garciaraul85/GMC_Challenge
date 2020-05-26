@@ -55,12 +55,12 @@ class ItemFragment : androidx.fragment.app.Fragment() {
                 is ItemViewModel.AppState.LOADING -> displayLoading()
                 is ItemViewModel.AppState.SUCCESS -> displayTracks(appState.itemsList)
                 is ItemViewModel.AppState.ERROR -> displayMessage(appState.message)
-                else -> displayMessage("Something Went Wrong... Try Again.")
+                else -> displayMessage(getString(R.string.generic_error))
             }
         })
 
-        rv_drawer_list.adapter = adapter
-        rv_drawer_list.layoutManager =
+        rv_item_list.adapter = adapter
+        rv_item_list.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(activity)
         tag?.let { viewModel.getItemByElements(it) }
 
@@ -72,21 +72,21 @@ class ItemFragment : androidx.fragment.app.Fragment() {
 
         // set correct visible element
         progressBar.visibility = View.GONE
-        rv_drawer_list.visibility = View.VISIBLE
+        rv_item_list.visibility = View.VISIBLE
         messageText.visibility = View.GONE
     }
 
     private fun displayLoading() {
         // set correct visible element
         progressBar.visibility = View.VISIBLE
-        rv_drawer_list.visibility = View.GONE
+        rv_item_list.visibility = View.GONE
         messageText.visibility = View.GONE
     }
 
     private fun displayMessage(message: String) {
         // set correct visible element
         progressBar.visibility = View.GONE
-        rv_drawer_list.visibility = View.GONE
+        rv_item_list.visibility = View.GONE
         messageText.visibility = View.VISIBLE
         //set message
         messageText.text = message
@@ -112,11 +112,11 @@ class ItemFragment : androidx.fragment.app.Fragment() {
         when (event.event) {
             NEXT -> {
                 EventBus.getDefault().post(adapter.playNextSong())
-                rv_drawer_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick()
+                rv_item_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick()
             }
             PREVIOUS -> {
                 EventBus.getDefault().post(adapter.playPreviousSong())
-                rv_drawer_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick()
+                rv_item_list.findViewHolderForAdapterPosition(adapter.previousSelectedItem)?.itemView?.performClick()
             }
         }
     }
